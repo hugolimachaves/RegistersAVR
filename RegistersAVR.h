@@ -14,6 +14,7 @@ class RegistersAVR
 	virtual ~RegistersAVR();
 	static void setOn(int reg, int port);
 	static void setOff(int reg, int port);
+	static void setOutput(int reg, int port);
 };
 
 #endif 
