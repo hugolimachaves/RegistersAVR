@@ -17,7 +17,8 @@ RegistersAVR::~RegistersAVR()
 */
 static void RegistersAVR::setOn(uint16_t regAbsolteAddress, uint8_t registerBit)
 {
-	(*(volatile uint16_t *)( regAbsolteAddress )) |= (1<<registerBit);  
+	//(*(volatile uint16_t *)( regAbsolteAddress )) |= (1<<registerBit);  
+	(*(volatile uint16_t *)( regAbsolteAddress )) = (*(volatile uint16_t *)( regAbsolteAddress )) |  (1<<registerBit);
 }
 
 
@@ -28,7 +29,8 @@ static void RegistersAVR::setOn(uint16_t regAbsolteAddress, uint8_t registerBit)
 */
 static void RegistersAVR::setOff(uint16_t regAbsolteAddress, uint8_t registerBit)
 {
-	(*(volatile uint16_t *)( regAbsolteAddress )) &= (1<<registerBit)^0xFF;  
+	//(*(volatile uint16_t *)( regAbsolteAddress )) &= (1<<registerBit)^0xFF;  
+	(*(volatile uint16_t *)( regAbsolteAddress )) = (*(volatile uint16_t *)( regAbsolteAddress )) &  (1<<registerBit)^0xFF;  
 }
 
 /**
@@ -42,12 +44,12 @@ static void RegistersAVR::setIO(uint16_t regAbsolteAddress, uint8_t registerBit,
 {
 	if (direction == _INPUT) 
 	{
-		(*(volatile uint16_t *)( regAbsolteAddress )) &= (1 << registerBit)^0xFF;
+		(*(volatile uint16_t *)( regAbsolteAddress)) = (*(volatile uint16_t *)( regAbsolteAddress)) & (1 << registerBit)^0xFF;
 
 	} 
 	else if (direction == _OUTPUT) 
 	{
-		(*(volatile uint16_t *)(regAbsolteAddress)) |= (1<<registerBit);  //setando como input
+		(*(volatile uint16_t *)( regAbsolteAddress)) = (*(volatile uint16_t *)( regAbsolteAddress)) | (1 << registerBit);  //setando como input
 	}
 }
 
